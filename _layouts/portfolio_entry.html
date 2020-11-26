@@ -89,7 +89,6 @@ layout: default
    {% comment %}<!-- show posts by related tags when `related: true` -->{% endcomment %}
   {% if page.related %}
     {% assign n_posts = 0 %}
-    {% assign used_posts = "" | split: ',' %}
     {% for post in site.portfolio %}
       {% if post.id == page.id %}{% continue %}{% endif %}
       {% for this_tag in page.tags %}
@@ -104,16 +103,12 @@ layout: default
             {% include archive-single.html type="grid" %}
             {% assign n_posts = n_posts | plus: 1 %}
             {% break %}
-            {% assign used_posts = used_posts | push: post %}
           {% endif %}
       {% endfor %}
       {% if n_posts > 3 %}{% break %}{% endif %}
     {% endfor %}
-     <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy Test" }}</h4>
     {% if n_posts < 4 %}
-                     <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy Test1" }}</h4>
           {% for post in site.portfolio %}
-                <h4> Test port </h4>
                      {% if post.id == page.id %}{% continue %}{% endif %}
                      {% if n_posts == 0 %}
                       <div class="page__related">
@@ -122,10 +117,9 @@ layout: default
                 
                     <div class="grid__wrapper">
                     {% endif %}
-                    {% for x in used_posts %}
-                      <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy Test3" }}</h4>
-                      {{ x }}
-                     {% endfor %}
+                    {% include archive-single.html type="grid" %}
+                    {% assign n_posts = n_posts | plus: 1 %}
+                    {% if n_posts > 3 %}{% break %}{% endif %}
            {% endfor %}
     {% endif %}
     {% if n_posts > 0 %}
