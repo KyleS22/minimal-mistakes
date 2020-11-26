@@ -120,9 +120,8 @@ layout: default
                     <div class="grid__wrapper">
                     {% endif %}
                     {% assign used = false %}
-                    {{ used_posts }}
                     {% for post_used in used_posts %}
-                      {{ post_used.id }} {{ post.id }}
+                      <h4> {{ post_used.id }} {{ post.id }} </h4>
                       {% if post.id == post_used.id %}
                         {% assign used = true %}
                       {% endif %}
