@@ -119,11 +119,17 @@ layout: default
                 
                     <div class="grid__wrapper">
                     {% endif %}
-                    {% unless used_posts contains post.id %}
+                    {% assign used = false %}
+                    {% for post_id in used_posts %}
+                      {% if post.id == post_id %}
+                        {% assign used = true %}
+                      {% endif %}
+                     {% endfor %}
+                     {% if used == false %}
                       {% include archive-single.html type="grid" %}
                       {% assign n_posts = n_posts | plus: 1 %}
                      {% if n_posts > 3 %}{% break %}{% endif %}
-                     {% endunless %}
+                     {% endif %}
            {% endfor %}
     {% endif %}
     {% if n_posts > 0 %}
