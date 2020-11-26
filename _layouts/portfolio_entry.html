@@ -110,16 +110,25 @@ layout: default
     {% if n_posts < 4 %}
           {% for post in site.portfolio %}
                      {% if post.id == page.id %}{% continue %}{% endif %}
-                     {% if n_posts == 0 %}
-                      <div class="page__related">
-               
-                      <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h4>
-                
-                    <div class="grid__wrapper">
-                    {% endif %}
-                    {% include archive-single.html type="grid" %}
-                    {% assign n_posts = n_posts | plus: 1 %}
-                    {% if n_posts > 3 %}{% break %}{% endif %}
+                     {% assign can_use = 1 %}
+                     {% for this_tag in page.tags %}
+                        {% if post.tags contains this_tag %}
+                          {% assign can_use = 0 %}
+                        {% endif %}
+                      {% endfor %}
+                      
+                     {% if can_use == 1 %}
+                        {% if n_posts == 0 %}
+                        <div class="page__related">
+
+                        <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h4>
+
+                      <div class="grid__wrapper">
+                      {% endif %}
+                      {% include archive-single.html type="grid" %}
+                      {% assign n_posts = n_posts | plus: 1 %}
+                      {% if n_posts > 3 %}{% break %}{% endif %}
+                     {% endif %}
            {% endfor %}
     {% endif %}
     {% if n_posts > 0 %}
