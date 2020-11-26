@@ -110,8 +110,9 @@ layout: default
       {% if n_posts > 3 %}{% break %}{% endif %}
     {% endfor %}
     {% if n_posts < 4 %}
-   
+                     <h4> Test </h4>
           {% for post in site.portfolio %}
+                <h4> Test port </h4>
                      {% if post.id == page.id %}{% continue %}{% endif %}
                      {% if n_posts == 0 %}
                       <div class="page__related">
@@ -121,6 +122,7 @@ layout: default
                     <div class="grid__wrapper">
                     {% endif %}
                     {% for x in used_posts %}
+                      <h4> Test used </h4>
                       {{ x }}
                      {% endfor %}
            {% endfor %}
