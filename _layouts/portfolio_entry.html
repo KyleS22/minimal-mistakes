@@ -111,6 +111,7 @@ layout: default
     {% endfor %}
     {% if n_posts < 4 %}
           {% for post in site.portfolio %}
+                     {% if post.id == page.id %}{% continue %}{% endif %}
                      {% if n_posts == 0 %}
                       <div class="page__related">
                
