@@ -89,6 +89,7 @@ layout: default
    {% comment %}<!-- show posts by related tags when `related: true` -->{% endcomment %}
   {% if page.related %}
     {% assign n_posts = 0 %}
+    {% assign unrelated = "" | split: ',' %}
     {% for post in site.portfolio %}
       {% if post.id == page.id %}{% continue %}{% endif %}
       {% for this_tag in page.tags %}
@@ -103,10 +104,26 @@ layout: default
             {% include archive-single.html type="grid" %}
             {% assign n_posts = n_posts | plus: 1 %}
             {% break %}
+          {% else %}
+                  {% assign unrelated = unrelated | push: post %}
           {% endif %}
       {% endfor %}
       {% if n_posts > 3 %}{% break %}{% endif %}
     {% endfor %}
+    {% if n_posts < 4 %}
+          {% for post in unrelated %}
+                     {% if n_posts == 0 %}
+                      <div class="page__related">
+               
+                      <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h4>
+                
+                    <div class="grid__wrapper">
+                    {% endif %}
+                    {% include archive-single.html type="grid" %}
+                    {% assign n_posts = n_posts | plus: 1 %}
+                     {% if n_posts > 3 %}{% break %}{% endif %}
+           {% endfor %}
+    {% endif %}
     {% if n_posts > 0 %}
         </div>
       </div>
