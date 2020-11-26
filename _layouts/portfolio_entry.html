@@ -109,9 +109,9 @@ layout: default
       {% endfor %}
       {% if n_posts > 3 %}{% break %}{% endif %}
     {% endfor %}
-     <h4 class="page__related-title">{{ used_posts }}</h4>
+     <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy Test" }}</h4>
     {% if n_posts < 4 %}
-                     <h4> Test </h4>
+                     <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy Test1" }}</h4>
           {% for post in site.portfolio %}
                 <h4> Test port </h4>
                      {% if post.id == page.id %}{% continue %}{% endif %}
@@ -123,7 +123,7 @@ layout: default
                     <div class="grid__wrapper">
                     {% endif %}
                     {% for x in used_posts %}
-                      <h4> Test used </h4>
+                      <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy Test3" }}</h4>
                       {{ x }}
                      {% endfor %}
            {% endfor %}
