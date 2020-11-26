@@ -104,7 +104,7 @@ layout: default
             {% include archive-single.html type="grid" %}
             {% assign n_posts = n_posts | plus: 1 %}
             {% break %}
-            {% assign used_posts = used_posts | push: post.id %}
+            {% assign used_posts = used_posts | push: post %}
           {% endif %}
       {% endfor %}
       {% if n_posts > 3 %}{% break %}{% endif %}
@@ -120,8 +120,10 @@ layout: default
                     <div class="grid__wrapper">
                     {% endif %}
                     {% assign used = false %}
-                    {% for post_id in used_posts %}
-                      {% if post.id == post_id %}
+                    {{ used_posts }}
+                    {% for post_used in used_posts %}
+                      {{ post_used.id }} {{ post.id }}
+                      {% if post.id == post_used.id %}
                         {% assign used = true %}
                       {% endif %}
                      {% endfor %}
